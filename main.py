@@ -15,6 +15,22 @@ db = SQLAlchemy(app)
 
 
 
+@app.route('/', methods=['POST', 'GET'])
+def index():
+
+    if request.method == 'POST':
+        post_title = request.form['post-title']
+        new_post = Post(new_title, new_content)
+        db.session.add(new_post)
+        db.session.commit()
+
+    posts = Post.query.all()
+    return render_template('index.html', title="It's a-Blogio",
+        posts=posts)
+
+
+
+
 
 if __name__ == '__main__':
     app.run()
