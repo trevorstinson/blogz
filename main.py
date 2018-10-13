@@ -15,11 +15,11 @@ db = SQLAlchemy(app)
 
 
 
-class BlogPost(db.Model):
+class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
-    body = db.Column(db.String(120000))
+    body = db.Column(db.String(1200))
 
     def __init__(self, title, body):
         self.title = title
@@ -33,13 +33,13 @@ class BlogPost(db.Model):
 def index():
 
     if request.method == 'POST':
-        new_title = request.form['post-title']
-        new_body = request.form['post-body']
-        new_post = Post(new_title, new_body)
+        new_title = request.form['blog-post-title']
+        new_body = request.form['blog-post-body']
+        new_post = Blog(new_title, new_body)
         db.session.add(new_post)
         db.session.commit()
 
-    blogposts = Post.query.all()
+    blogposts = Blog.query.all()
     return render_template('index.html', title="It's-a Me, Blogio",
         blogposts=blogposts)
 
