@@ -15,12 +15,26 @@ db = SQLAlchemy(app)
 
 
 
+class Post(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120))
+    body = db.Column(db.String(120000))
+
+    def __init__(self, title, body):
+        self.title = title
+        self.body = body
+
+
+
+
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
 
     if request.method == 'POST':
         post_title = request.form['post-title']
-        new_post = Post(new_title, new_content)
+        new_post = Post(new_title, new_body)
         db.session.add(new_post)
         db.session.commit()
 
