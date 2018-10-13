@@ -7,25 +7,25 @@
     <form method="post">
         <label>
             Title:
-            <input type="text" name="post-title" />
+            <input type="text" name="blog-post-title" />
             Body:
-            <input type="text" name="post-body" />
+            <input type="text" name="blog-post-body" />
         </label>
         <input type="submit" value="Add Post" />
     </form>
 
     <hr />
 
-    {% if posts|length == 0 %}
-    <p class="lead">No posts yet</p>
+    {% if blogposts|length == 0 %}
+    <p class="lead">No blog posts yet</p>
     {% else %}
 
         <ul>
-            {% for post in posts %}
+            {% for blogpost in blogposts %}
             <li>
-                {{post.title}}
+                {{blogpost.title}}
             </li>
-            {%  endfor %}
+            {% endfor %}
         </ul>
 
     {% endif %}
