@@ -36,22 +36,26 @@ def send_to_index():
 def index():
 
     if request.method == 'POST':
+        # Get info from filled form
         new_title = request.form['blog-post-title']
         new_body = request.form['blog-post-body']
 
+        # Set error message for empty title or body
         if new_title == '':
             flash('Your post need a name.', 'title-error')
         if new_body == '':
             flash("You didn't write anything!", 'body-error')
 
+        # Redirect back to /newpost if either field was empty
         if new_title == '' or new_body == '':
             return redirect('/newpost')
 
+        # If all fields were filled, add new post to database
         new_post = Blog(new_title, new_body)
         db.session.add(new_post)
         db.session.commit()
 
-
+    # Get all blogposts and render a listing
     blogposts = Blog.query.all()
     return render_template('index.html', title="Blog Posts",
         blogposts=blogposts, index_active="active")
