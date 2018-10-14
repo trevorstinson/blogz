@@ -10,7 +10,12 @@
 
     {% for blogpost in blogposts %}
 
-        <h2>{{blogpost.title}}</h2>
+        
+        <h2>
+            <a href="/blog?id={{blogpost.id}}">
+                {{blogpost.title}}
+            </a>
+        </h2>
         <p class="mb-5">{{blogpost.body}}</p>
 
     {% endfor %}

@@ -64,10 +64,21 @@ def index():
         db.session.add(new_post)
         db.session.commit()
 
-    # Get all blogposts and render a listing
-    blogposts = Blog.query.all()
-    return render_template('index.html', title="Blog Posts",
-        blogposts=blogposts, index_active="active")
+    if request.method == 'GET':
+        post_id = request.args.get('id')
+
+        if post_id == None:
+            # Get all blogposts and render a listing
+            blogposts = Blog.query.all()
+            return render_template('index.html', title="Blog Posts",
+                blogposts=blogposts, index_active="active")
+
+        if post_id != None:
+            # Get single blogpost by id and render its page
+            blogpost = Blog.query.filter_by(id=post_id).first()
+            return render_template('post.html', title="Blog Posts",
+                blogpost=blogpost)
+    
 
 
 
