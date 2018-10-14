@@ -8,12 +8,30 @@
         <div class="form-group">
             <label for="blog-post-title">Title</label>
             <input type="text" name="blog-post-title" class="form-control" 
-                id="blog-post-title" placeholder="This Is a Blog Post">
+                id="blog-post-title" placeholder="Your New Title Here">
+                    {% with messages = get_flashed_messages(category_filter=["title-error"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="text-danger pl-2 pt-1">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
         </div>
         <div class="form-group">
             <label for="blog-post-body">Content</label>
             <textarea name="blog-post-body" class="form-control" 
-                id="blog-post-body" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit sapiente eos nostrum dolorum accusamus fuga reiciendis aliquid, ad, expedita, iure perspiciatis temporibus? Libero facere assumenda quaerat facilis nesciunt corporis quo?"></textarea>
+                id="blog-post-body" placeholder="Write your new blog post here."></textarea>
+                {% with messages = get_flashed_messages(category_filter=["body-error"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="text-danger pl-2 pt-1">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
         </div>
         <div class="form-group">
             <input type="submit" value="Add Post" class="btn btn-primary" />

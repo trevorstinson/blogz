@@ -10,7 +10,7 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:grUwWx+rVv6jHEwr=EKAkaaU2cRkxU@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-
+app.secret_key = 'jKYgF}8gqmcJgzxA'
 
 
 
@@ -38,9 +38,19 @@ def index():
     if request.method == 'POST':
         new_title = request.form['blog-post-title']
         new_body = request.form['blog-post-body']
+
+        if new_title == '':
+            flash('Your post need a name.', 'title-error')
+        if new_body == '':
+            flash("You didn't write anything!", 'body-error')
+
+        if new_title == '' or new_body == '':
+            return redirect('/newpost')
+
         new_post = Blog(new_title, new_body)
         db.session.add(new_post)
         db.session.commit()
+
 
     blogposts = Blog.query.all()
     return render_template('index.html', title="Blog Posts",
