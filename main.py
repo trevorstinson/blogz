@@ -43,15 +43,15 @@ def index():
         db.session.commit()
 
     blogposts = Blog.query.all()
-    return render_template('index.html', title="It's-a Me, Blogio",
-        blogposts=blogposts)
+    return render_template('index.html', title="Blog Posts",
+        blogposts=blogposts, index_active="active")
 
 
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
 
-    return render_template('newpost.html', title="Let's Make a Post")
+    return render_template('newpost.html', title="Let's Make a Post", newpost_active="active")
 
 
 
