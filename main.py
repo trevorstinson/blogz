@@ -46,8 +46,17 @@ def index():
         if new_body == '':
             flash("You didn't write anything!", 'body-error')
 
+
+
         # Redirect back to /newpost if either field was empty
         if new_title == '' or new_body == '':
+
+            # Save any content that *was* added to form
+            if new_title != '':
+                flash(new_title, 'title-extant')
+            if new_body != '':
+                flash(new_body, 'body-extant')
+
             return redirect('/newpost')
 
         # If all fields were filled, add new post to database
