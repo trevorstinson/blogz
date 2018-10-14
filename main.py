@@ -26,10 +26,13 @@ class Blog(db.Model):
         self.body = body
 
 
+@app.route('/')
+def send_to_index():
+    return redirect('/blog')
 
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/blog', methods=['POST', 'GET'])
 def index():
 
     if request.method == 'POST':
@@ -44,6 +47,11 @@ def index():
         blogposts=blogposts)
 
 
+
+@app.route('/newpost', methods=['POST', 'GET'])
+def newpost():
+
+    return render_template('newpost.html', title="Let's Make a Post")
 
 
 
