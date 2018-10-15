@@ -64,6 +64,9 @@ def index():
         db.session.add(new_post)
         db.session.commit()
 
+        # Then redirect to page of new post
+        return redirect('/blog?id={0}'.format(new_post.id))
+
     if request.method == 'GET':
         post_id = request.args.get('id')
 
