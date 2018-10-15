@@ -42,7 +42,7 @@ def index():
 
         # Set error message for empty title or body
         if new_title == '':
-            flash('Your post need a name.', 'title-error')
+            flash('Your post needs a name.', 'title-error')
         if new_body == '':
             flash("You didn't write anything!", 'body-error')
 
