@@ -71,8 +71,8 @@ def index():
         post_id = request.args.get('id')
 
         if post_id == None:
-            # Get all blogposts and render a listing
-            blogposts = Blog.query.all()
+            # Get all blogposts and render a reverse-chronological listing by ID
+            blogposts = Blog.query.order_by("id desc").all()
             return render_template('index.html', title="It's-a Me, Blogio",
                 blogposts=blogposts, index_active="active")
 
