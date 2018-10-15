@@ -73,13 +73,13 @@ def index():
         if post_id == None:
             # Get all blogposts and render a listing
             blogposts = Blog.query.all()
-            return render_template('index.html', title="Blog Posts",
+            return render_template('index.html', title="It's-a Me, Blogio",
                 blogposts=blogposts, index_active="active")
 
         if post_id != None:
             # Get single blogpost by id and render its page
             blogpost = Blog.query.filter_by(id=post_id).first()
-            return render_template('post.html', title="Blog Posts",
+            return render_template('post.html', title="It's-a Me, Blogio",
                 blogpost=blogpost)
     
 
