@@ -7,7 +7,7 @@ app.config['DEBUG'] = True
 # Note: the connection string after :// contains the following info:
 # user:password@server:portNumber/databaseName
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:grUwWx+rVv6jHEwr=EKAkaaU2cRkxU@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:antennae-kernel-suchlike-union@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'jKYgF}8gqmcJgzxA'
