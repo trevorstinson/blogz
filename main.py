@@ -15,6 +15,21 @@ app.secret_key = 'jKYgF}8gqmcJgzxA'
 
 
 
+
+class User(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(32), unique=True)
+    pw_hash = db.Column(db.String(120))
+    blogs = db.relationship('Blog', backref='author')
+    
+
+    def __init__(self, email, password):
+        self.email = email
+        self.pw_hash = make_pw_hash(password)
+
+
+
 class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +39,9 @@ class Blog(db.Model):
     def __init__(self, title, body):
         self.title = title
         self.body = body
+
+
+
 
 
 @app.route('/')
