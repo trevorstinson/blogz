@@ -56,38 +56,6 @@ def send_to_index():
 @app.route('/blog', methods=['POST', 'GET'])
 def index():
 
-    if request.method == 'POST':
-        # Get info from filled form
-        new_title = request.form['blog-post-title']
-        new_body = request.form['blog-post-body']
-
-        # Set error message for empty title or body
-        if new_title == '':
-            flash('Your post needs a name.', 'title-error')
-        if new_body == '':
-            flash("You didn't write anything!", 'body-error')
-
-
-
-        # Redirect back to /newpost if either field was empty
-        if new_title == '' or new_body == '':
-
-            # Save any content that *was* added to form
-            if new_title != '':
-                flash(new_title, 'title-extant')
-            if new_body != '':
-                flash(new_body, 'body-extant')
-
-            return redirect('/newpost')
-
-        # If all fields were filled, add new post to database
-        new_post = Blog(new_title, new_body)
-        db.session.add(new_post)
-        db.session.commit()
-
-        # Then redirect to page of new post
-        return redirect('/blog?id={0}'.format(new_post.id))
-
     if request.method == 'GET':
         post_id = request.args.get('id')
 
@@ -109,7 +77,40 @@ def index():
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
 
-    return render_template('newpost.html', title="Let's Make a Post", newpost_active="active")
+    if request.method == 'GET':
+        return render_template('newpost.html', title="Let's Make a Post", newpost_active="active")
+
+    if request.method == 'POST':
+        # Get info from filled form
+        new_title = request.form['blog-post-title']
+        new_body = request.form['blog-post-body']
+
+    # Set error message for empty title or body
+    if new_title == '':
+        flash('Your post needs a name.', 'title-error')
+    if new_body == '':
+        flash("You didn't write anything!", 'body-error')
+
+
+
+    # Redirect back to /newpost if either field was empty
+    if new_title == '' or new_body == '':
+
+        # Save any content that *was* added to form
+        if new_title != '':
+            flash(new_title, 'title-extant')
+        if new_body != '':
+            flash(new_body, 'body-extant')
+
+        return redirect('/newpost')
+
+    # If all fields were filled, add new post to database
+    new_post = Blog(new_title, new_body)
+    db.session.add(new_post)
+    db.session.commit()
+
+    # Then redirect to page of new post
+    return redirect('/blog?id={0}'.format(new_post.id))
 
 
 

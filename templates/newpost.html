@@ -4,7 +4,7 @@
 
     <h1 class="display-4 text-center m-4">{{title}}</h1>
 
-    <form action="blog" method="post">
+    <form action="newpost" method="post">
         <div class="form-group">
             <label for="blog-post-title">Title</label>
                 {% with messages = get_flashed_messages(category_filter=["title-extant"]) %}
