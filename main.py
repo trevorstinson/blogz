@@ -72,6 +72,13 @@ def login():
 
 
 
+@app.route('/logout')
+def logout():
+    del session['username']
+    return redirect('/')
+
+
+
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
 
