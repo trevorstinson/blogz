@@ -50,6 +50,28 @@ def send_to_index():
 
 
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        login_username = request.form['login-username']
+        login_password = request.form['login-password']
+        user = User.query.filter_by(username=login_username).first()
+
+        if not user:
+            username_error = "Username does not exist."
+            return render_template('login.html', username_error=username_error, username='')
+        elif not check_pw_hash(login_password, user.pw_hash):
+            password_error = "Incorrect password."
+            return render_template('login.html', password_error=password_error, username=login_username)
+        else:
+            session['username'] = login_username
+            return redirect('/')
+
+
+    return render_template('login.html')
+
+
+
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
 
