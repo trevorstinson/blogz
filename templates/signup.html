@@ -20,10 +20,13 @@
             <label for="new-password">Password</label>
             <input type="password" name="new-password" class="form-control" 
                     id="new-password" placeholder="correct-horse-battery-staple" >
-            <input type="password" name="new-password-verify" class="form-control mt-2" 
+                    {% if password_error %}
+                        <div class="text-danger pl-2 pt-1">{{ password_error }}</div>
+                    {% endif %}
+                    <input type="password" name="new-password-verify" class="form-control mt-2" 
                     id="new-password-verify" placeholder="correct-horse-battery-staple" >
-                    {% if username_error %}
-                        <div class="text-danger pl-2 pt-1">{{ username_error }}</div>
+                    {% if verify_error %}
+                        <div class="text-danger pl-2 pt-1">{{ verify_error }}</div>
                     {% endif %}
         </div>
         

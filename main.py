@@ -60,21 +60,42 @@ def signup():
         # Get info from filled form
         new_username = request.form['new-username']
         new_password = request.form['new-password']
+        new_password_verify = request.form['new-password-verify']
 
-        new_user = User(new_username, new_password)
-        
-        # Set error message for empty username or password
+        # Set blank errors to avoid crashing
+        username_error = ''
+        password_error = ''
+        verify_error = ''
+
+        # Set error message for empty username
         if new_username == '':
             username_error = 'Please enter a valid username.'
+        elif len(new_username) <= 3:
+            username_error = 'Please enter a username with 4 or more characters.'
+        # Set error message for non-matching verification
+        if new_password != new_password_verify or new_password_verify == '':
+            verify_error = "Please verify your password."
+            password_error = 'Please reenter your password.'
+        # Set error message for empty password
         if new_password == '':
             password_error = 'Please enter a valid password.'
+        elif len(new_password) <= 3:
+            password_error = 'Please enter a password with 4 or more characters.'
+
+        # Get any user with same username from database
+        user_exists = User.query.filter_by(username=new_username).first()
+
+        if user_exists:
+            username_error = 'This username is already taken.'
 
 
         # Reload on same page if either field was empty
-        if new_username == '' or new_password == '':
-            return render_template('/signup.html', title="Sign Up", new_username=new_username, username_error=username_error, password_error=password_error)
+        if username_error or password_error or verify_error:
+            return render_template('/signup.html', title="Sign Up", new_username=new_username, 
+                    username_error=username_error, password_error=password_error, verify_error=verify_error)
 
         # If all fields were filled, add new post to database
+        new_user = User(new_username, new_password)
         db.session.add(new_user)
         db.session.commit()
         session['username'] = new_user.username
