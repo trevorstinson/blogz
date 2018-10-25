@@ -44,6 +44,15 @@ class Blog(db.Model):
         self.owner = owner
 
 
+
+@app.before_request
+def require_login():
+    allowed_routes = ['login', 'signup', 'index', 'send_to_index']
+    if request.endpoint not in allowed_routes and 'username' not in session:
+        return redirect('/login')
+
+
+
 @app.route('/')
 def send_to_index():
     return redirect('/blog')
