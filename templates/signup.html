@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1 class="display-4 text-center m-4">{{title}}</h1>
+
+    <form action="/signup" method="post">
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="new-user-email">Email</label>
+            <input type="email" name="new-user-email" class="form-control" 
+                    id="new-user-email" placeholder="user@example.com" value="{{ email }}">
+                    <!-- {% with messages = get_flashed_messages(category_filter=["title-error"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="text-danger pl-2 pt-1">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %} -->
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+            <label for="new-user-password">Password</label>
+            <input type="password" name="new-user-password" class="form-control" 
+                    id="new-user-password" placeholder="correct-horse-battery-staple" >
+                    <!-- {% with messages = get_flashed_messages(category_filter=["title-error"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="text-danger pl-2 pt-1">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %} -->
+        <!-- Verify Password -->
+            <!-- <label for="new-user-password-verify">Verify Password</label> -->
+            <input type="password" name="new-user-password-verify" class="form-control mt-2" 
+                    id="new-user-password-verify" placeholder="correct-horse-battery-staple" >
+                    <!-- {% with messages = get_flashed_messages(category_filter=["title-error"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="text-danger pl-2 pt-1">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %} -->
+        </div>
+        
+        <div class="form-group float-right">
+            <input type="submit" value="Sign Up" class="btn btn-primary" />
+            <a href="/" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+
+{% endblock %}

@@ -53,6 +53,14 @@ def send_to_index():
 
 
 
+@app.route('/signup', methods=['POST', 'GET'])
+def signup():
+
+    if request.method == 'GET':
+        return render_template('signup.html', title="Sign Up")
+
+
+
 @app.route('/blog', methods=['POST', 'GET'])
 def index():
 
