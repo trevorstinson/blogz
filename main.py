@@ -25,8 +25,8 @@ class User(db.Model):
     blogs = db.relationship('Blog', backref='blog.owner_id')
     
 
-    def __init__(self, email, password):
-        self.email = email
+    def __init__(self, username, password):
+        self.username = username
         self.pw_hash = make_pw_hash(password)
 
 
@@ -44,9 +44,6 @@ class Blog(db.Model):
         self.owner = owner
 
 
-
-
-
 @app.route('/')
 def send_to_index():
     return redirect('/blog')
@@ -58,6 +55,33 @@ def signup():
 
     if request.method == 'GET':
         return render_template('signup.html', title="Sign Up")
+
+    if request.method == 'POST':
+        # Get info from filled form
+        new_username = request.form['new-username']
+        new_password = request.form['new-password']
+
+        new_user = User(new_username, new_password)
+        
+        # Set error message for empty username or password
+        if new_username == '':
+            username_error = 'Please enter a valid username.'
+        if new_password == '':
+            password_error = 'Please enter a valid password.'
+
+
+        # Reload on same page if either field was empty
+        if new_username == '' or new_password == '':
+            return render_template('/signup.html', title="Sign Up", new_username=new_username, username_error=username_error, password_error=password_error)
+
+        # If all fields were filled, add new post to database
+        db.session.add(new_user)
+        db.session.commit()
+        session['username'] = new_user.username
+        # flash("Logged in")
+
+        # Then redirect to new post page
+        return redirect('/newpost')
 
 
 
