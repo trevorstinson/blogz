@@ -47,15 +47,20 @@ class Blog(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'signup', 'index', 'send_to_index']
+    allowed_routes = ['login', 'signup', 'index', 'blog']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
 
 
 
 @app.route('/')
-def send_to_index():
-    return redirect('/blog')
+def index():
+
+    users = User.query.order_by("username").all()
+
+
+    return render_template('index.html', title="All Users",
+                users=users, index_active="active")
 
 
 
@@ -145,7 +150,7 @@ def signup():
 
 
 @app.route('/blog', methods=['POST', 'GET'])
-def index():
+def blog():
 
     if request.method == 'GET':
         post_id = request.args.get('id')
@@ -153,7 +158,7 @@ def index():
         if post_id == None:
             # Get all blogposts and render a reverse-chronological listing by ID
             blogposts = Blog.query.order_by("id desc").all()
-            return render_template('index.html', title="It's-a Me, Blogio",
+            return render_template('blogs.html', title="It's-a Me, Blogio",
                 blogposts=blogposts, blog_active="active")
 
         if post_id != None:

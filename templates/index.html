@@ -4,17 +4,17 @@
 
 <h1 class="display-4 text-center m-4">{{title}}</h1>
 
-    {% if blogposts|length == 0 %}
-        <p class="lead">No blog posts yet</p>
+    {% if users|length == 0 %}
+        <p class="lead">No users yet</p>
     {% else %}
 
-        {% for blogpost in blogposts %}
+        {% for user in users %}
             <h2>
-                <a href="/blog?id={{blogpost.id}}" class="text-dark bg-light pt-2 pr-3 pb-2 pl-5">
-                    {{blogpost.title}}
-                </a>
+                <!-- <a href="/blog?id={{user.id}}" class="text-dark bg-light pt-2 pr-3 pb-2 pl-5"> -->
+                    {{user.username}}
+                <!-- </a> -->
             </h2>
-            <p class="mb-5 p-4 pl-5">{{blogpost.body}}</p>
+            <!-- <p class="mb-5 p-4 pl-5">{{user.body}}</p> -->
         {% endfor %}
 
     {% endif %}
