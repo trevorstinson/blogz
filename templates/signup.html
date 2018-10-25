@@ -8,9 +8,9 @@
 
         <!-- Email -->
         <div class="form-group">
-            <label for="new-user-email">Email</label>
-            <input type="email" name="new-user-email" class="form-control" 
-                    id="new-user-email" placeholder="user@example.com" value="{{ email }}">
+            <label for="new-username">Username</label>
+            <input type="text" name="new-username" class="form-control" 
+                    id="new-username" placeholder="username" value="{{ username }}">
                     <!-- {% with messages = get_flashed_messages(category_filter=["title-error"]) %}
                         {% if messages %}
                             {% for message in messages %}
@@ -21,9 +21,9 @@
         </div>
         <!-- Password -->
         <div class="form-group">
-            <label for="new-user-password">Password</label>
-            <input type="password" name="new-user-password" class="form-control" 
-                    id="new-user-password" placeholder="correct-horse-battery-staple" >
+            <label for="new-password">Password</label>
+            <input type="password" name="new-password" class="form-control" 
+                    id="new-password" placeholder="correct-horse-battery-staple" >
                     <!-- {% with messages = get_flashed_messages(category_filter=["title-error"]) %}
                         {% if messages %}
                             {% for message in messages %}
@@ -32,9 +32,9 @@
                         {% endif %}
                     {% endwith %} -->
         <!-- Verify Password -->
-            <!-- <label for="new-user-password-verify">Verify Password</label> -->
-            <input type="password" name="new-user-password-verify" class="form-control mt-2" 
-                    id="new-user-password-verify" placeholder="correct-horse-battery-staple" >
+            <!-- <label for="new-password-verify">Verify Password</label> -->
+            <input type="password" name="new-password-verify" class="form-control mt-2" 
+                    id="new-password-verify" placeholder="correct-horse-battery-staple" >
                     <!-- {% with messages = get_flashed_messages(category_filter=["title-error"]) %}
                         {% if messages %}
                             {% for message in messages %}
