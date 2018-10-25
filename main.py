@@ -154,12 +154,12 @@ def index():
             # Get all blogposts and render a reverse-chronological listing by ID
             blogposts = Blog.query.order_by("id desc").all()
             return render_template('index.html', title="It's-a Me, Blogio",
-                blogposts=blogposts, index_active="active")
+                blogposts=blogposts, blog_active="active")
 
         if post_id != None:
             # Get single blogpost by id and render its page
             blogpost = Blog.query.filter_by(id=post_id).first()
-            return render_template('post.html', title="It's-a Me, Blogio", index_active="active")
+            return render_template('post.html', title="It's-a Me, Blogio", blog_active="active", blogpost=blogpost)
     
 
 
@@ -174,6 +174,7 @@ def newpost():
         # Get info from filled form
         new_title = request.form['blog-post-title']
         new_body = request.form['blog-post-body']
+        owner = User.query.filter_by(username=session['username']).first()
 
     # Set error message for empty title or body
     if new_title == '':
@@ -195,7 +196,7 @@ def newpost():
         return redirect('/newpost')
 
     # If all fields were filled, add new post to database
-    new_post = Blog(new_title, new_body)
+    new_post = Blog(new_title, new_body, owner)
     db.session.add(new_post)
     db.session.commit()
 
