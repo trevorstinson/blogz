@@ -65,7 +65,7 @@ def login():
             return render_template('login.html', password_error=password_error, username=login_username)
         else:
             session['username'] = login_username
-            return redirect('/')
+            return redirect('/newpost')
 
 
     return render_template('login.html')
