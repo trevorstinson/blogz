@@ -33,20 +33,26 @@
                 <li class="nav-item {{index_active}}">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item {{newpost_active}}">
-                    <a class="nav-link" href="/newpost">New Post</a>
-                </li>
+                {% if session['username'] %}
+                    <li class="nav-item {{newpost_active}}">
+                        <a class="nav-link" href="/newpost">New Post</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item {{signup_active}}">
+                        <a class="nav-link" href="/signup">Sign Up</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav navbar-right">
-                <li class="nav-item {{signup_active}}">
-                    <a class="nav-link" href="/signup">Sign Up</a>
-                </li>
-                <li class="nav-item {{login_active}}">
-                    <a class="nav-link" href="/login">Log In</a>
-                </li>
-                <li class="nav-item {{logout_active}}">
-                    <a class="nav-link" href="/logout">Log Out</a>
-                </li>
+                {% if session['username'] %}
+                    <li class="nav-item {{logout_active}}">
+                        <a class="nav-link" href="/logout">Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item {{login_active}}">
+                        <a class="nav-link" href="/login">Log In</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

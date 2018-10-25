@@ -59,16 +59,16 @@ def login():
 
         if not user:
             username_error = "Username does not exist."
-            return render_template('login.html', username_error=username_error, username='')
+            return render_template('login.html', username_error=username_error, username='', login_active="active")
         elif not check_pw_hash(login_password, user.pw_hash):
             password_error = "Incorrect password."
-            return render_template('login.html', password_error=password_error, username=login_username)
+            return render_template('login.html', password_error=password_error, username=login_username, login_active="active")
         else:
             session['username'] = login_username
             return redirect('/newpost')
 
 
-    return render_template('login.html')
+    return render_template('login.html', login_active="active")
 
 
 
@@ -83,7 +83,7 @@ def logout():
 def signup():
 
     if request.method == 'GET':
-        return render_template('signup.html', title="Sign Up")
+        return render_template('signup.html', title="Sign Up", signup_active="active")
 
     if request.method == 'POST':
         # Get info from filled form
@@ -121,7 +121,7 @@ def signup():
         # Reload on same page if either field was empty
         if username_error or password_error or verify_error:
             return render_template('/signup.html', title="Sign Up", new_username=new_username, 
-                    username_error=username_error, password_error=password_error, verify_error=verify_error)
+                    username_error=username_error, password_error=password_error, verify_error=verify_error, signup_active="active")
 
         # If all fields were filled, add new post to database
         new_user = User(new_username, new_password)
@@ -150,8 +150,7 @@ def index():
         if post_id != None:
             # Get single blogpost by id and render its page
             blogpost = Blog.query.filter_by(id=post_id).first()
-            return render_template('post.html', title="It's-a Me, Blogio",
-                blogpost=blogpost)
+            return render_template('post.html', title="It's-a Me, Blogio", index_active="active")
     
 
 
