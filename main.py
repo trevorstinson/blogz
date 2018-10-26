@@ -41,7 +41,7 @@ class Blog(db.Model):
     def __init__(self, title, body, owner):
         self.title = title
         self.body = body
-        self.owner = owner
+        self.owner_id = owner
 
 
 
@@ -154,18 +154,22 @@ def blog():
 
     if request.method == 'GET':
         post_id = request.args.get('id')
+        user_id = request.args.get('user')
 
-        if post_id == None:
-            # Get all blogposts and render a reverse-chronological listing by ID
-            blogposts = Blog.query.order_by("id desc").all()
-            return render_template('blogs.html', title="It's-a Me, Blogio",
-                blogposts=blogposts, blog_active="active")
+        if user_id:
+            # Get blogposts by user id and render them in a list
+            blogposts = Blog.query.filter_by(owner_id=user_id).all()
+            return render_template('blogs.html', title="It's-a Me, Blogio", blog_active="active", blogposts=blogposts)
 
-        if post_id != None:
+        if post_id:
             # Get single blogpost by id and render its page
             blogpost = Blog.query.filter_by(id=post_id).first()
             return render_template('post.html', title="It's-a Me, Blogio", blog_active="active", blogpost=blogpost)
     
+        # Get all blogposts and render a reverse-chronological listing by ID
+        blogposts = Blog.query.order_by("id desc").all()
+        return render_template('blogs.html', title="It's-a Me, Blogio",
+            blogposts=blogposts, blog_active="active")
 
 
 
@@ -201,7 +205,7 @@ def newpost():
         return redirect('/newpost')
 
     # If all fields were filled, add new post to database
-    new_post = Blog(new_title, new_body, owner)
+    new_post = Blog(new_title, new_body, owner.id)
     db.session.add(new_post)
     db.session.commit()
 
