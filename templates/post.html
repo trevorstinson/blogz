@@ -2,8 +2,14 @@
 
 {% block content %}
 
-<h1 class="display-4 text-center m-4">{{blogpost.title}}</h1>
+<article class="text-center">
 
-<p class="text-center">{{blogpost.body}}</p>
+    <h1 class="display-4 text-center mt-4 mb-2">{{blogpost.title}}</h1>
+
+    <small class="text-muted text-center">Written by {{blogpost.owner_id}}</small>
+    
+    <p class="text-center mt-4">{{blogpost.body}}</p>
+
+</article>
 
 {% endblock %}

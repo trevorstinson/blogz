@@ -9,12 +9,17 @@
     {% else %}
 
         {% for blogpost in blogposts %}
+        <article class="mb-5">
             <h2>
-                <a href="/blog?id={{blogpost.id}}" class="text-dark bg-light pt-2 pr-3 pb-2 pl-5">
+                <a href="/blog?id={{blogpost.id}}" class="text-dark bg-light pt-2 pr-3 pb-2 pl-5 mt-1">
                     {{blogpost.title}}
                 </a>
             </h2>
-            <p class="mb-5 p-4 pl-5">{{blogpost.body}}</p>
+            <p class="pt-4 pb-2 pl-5">{{blogpost.body}}</p>
+            
+            <small class="text-muted pl-5">Written by {{blogpost.owner_id}}</small>
+            <!-- <hr class="mb-5"> -->
+        </article>
         {% endfor %}
 
     {% endif %}
