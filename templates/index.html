@@ -10,9 +10,9 @@
 
         {% for user in users %}
             <h2>
-                <!-- <a href="/blog?id={{user.id}}" class="text-dark bg-light pt-2 pr-3 pb-2 pl-5"> -->
-                    {{user.username}}
-                <!-- </a> -->
+                <a href="/blog?user={{user.id}}" class="pt-1 pr-5 pb-2 pl-5 mt-2">
+                    <small class="text-center">{{user.username}}</small>
+                </a>
             </h2>
             <!-- <p class="mb-5 p-4 pl-5">{{user.body}}</p> -->
         {% endfor %}

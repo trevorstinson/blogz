@@ -17,7 +17,10 @@
             </h2>
             <p class="pt-4 pb-2 pl-5">{{blogpost.body}}</p>
             
-            <small class="text-muted pl-5">Written by {{blogpost.owner_id}}</small>
+
+            <a href="/blog?user={{blogpost.owner_id}}" class="pt-2 pr-5 pb-2 pl-5 mt-1">
+                <small class="text-muted">Written by {{blogpost.owner_id}}</small>
+            </a>
             <!-- <hr class="mb-5"> -->
         </article>
         {% endfor %}
