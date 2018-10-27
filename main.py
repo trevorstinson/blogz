@@ -158,16 +158,17 @@ def blog():
 
         if user_id:
             # Get blogposts by user id and render them in a list
-            blogposts = Blog.query.filter_by(owner_id=user_id).all()
+            blogposts = Blog.query.filter_by(owner_id=user_id).join(User).add_columns(User.username,Blog.title,Blog.body,Blog.id,Blog.owner_id).order_by("blog_id desc").all()
             return render_template('blogs.html', title="It's-a Me, Blogio", blog_active="active", blogposts=blogposts)
 
         if post_id:
             # Get single blogpost by id and render its page
-            blogpost = Blog.query.filter_by(id=post_id).first()
+            blogpost = Blog.query.filter_by(id=post_id).join(User).add_columns(User.username,Blog.title,Blog.body,Blog.id,Blog.owner_id).first()
             return render_template('post.html', title="It's-a Me, Blogio", blog_active="active", blogpost=blogpost)
     
         # Get all blogposts and render a reverse-chronological listing by ID
-        blogposts = Blog.query.order_by("id desc").all()
+        # blogposts = Blog.query.order_by("id desc").all()
+        blogposts = Blog.query.join(User).add_columns(User.username,Blog.title,Blog.body,Blog.id,Blog.owner_id).order_by("blog_id desc").all()
         return render_template('blogs.html', title="It's-a Me, Blogio",
             blogposts=blogposts, blog_active="active")
 
